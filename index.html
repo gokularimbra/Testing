@@ -3,54 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>StreetRacer — Free Open-World Driving (No API key)</title>
-  <meta name="description" content="Drive on real OpenStreetMap roads anywhere on Earth. Enter a postcode/zip/pincode or pick random. Free, no Google billing, no API key. Optional Mapillary street-view mode." />
+  <title>StreetRacer 3D — Real-World Driving with Buildings &amp; Traffic</title>
+  <meta name="description" content="Drive in 3D through real-world buildings from any postcode. First & third-person views, road markings, and oncoming AI traffic. Powered by Mapbox." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Leaflet (free OpenStreetMap maps, no key) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <!-- MapillaryJS (free street-level imagery; needs a free token) -->
-  <link rel="stylesheet" href="https://unpkg.com/mapillary-js@4.1.2/dist/mapillary.css" />
-
-  <link rel="stylesheet" href="free.css" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="drive.css" />
 </head>
 <body>
   <!-- ===================== START SCREEN ===================== -->
   <section id="start" class="screen start">
     <div class="start__bg" aria-hidden="true"></div>
     <div class="start__panel">
-      <h1 class="title">STREET<span>RACER</span></h1>
-      <p class="tagline">Free open-world driving on real roads — no Google billing, no API key needed.</p>
+      <h1 class="title">STREET<span>RACER</span> <small>3D</small></h1>
+      <p class="tagline">Drive through real-world 3D buildings. Oncoming traffic, road markings, first &amp; third-person views.</p>
+
+      <div class="token">
+        <label for="tokenInput" class="lbl">Mapbox access token <span class="req">(required, free)</span></label>
+        <input id="tokenInput" class="input" type="text" placeholder="pk.eyJ1Ijoi..." autocomplete="off" />
+        <p class="hint">Get one free in ~1 min at <b>mapbox.com</b> → sign up → <b>Tokens</b> → copy your default public token (starts with <b>pk.</b>). No credit card. Saved in your browser only.</p>
+      </div>
 
       <form id="searchForm" class="search">
-        <label for="placeInput" class="search__label">Enter a postcode / zip / pincode or a place</label>
+        <label for="placeInput" class="lbl">Postcode / zip / pincode or place</label>
         <div class="search__row">
-          <input id="placeInput" class="search__input" type="text"
+          <input id="placeInput" class="input" type="text"
                  placeholder="e.g. SW1A 1AA, 10001, 560001, Tokyo..." autocomplete="off" />
           <button type="submit" class="btn btn--primary" id="driveBtn">Drive here</button>
         </div>
       </form>
 
       <div class="start__or"><span>or</span></div>
-
       <div class="start__random">
         <button class="btn btn--ghost" id="randomBtn">🎲 Random location</button>
         <button class="btn btn--ghost" id="famousBtn">🌆 Random famous city</button>
       </div>
 
       <div class="mode">
-        <span class="mode__label">View mode</span>
+        <span class="mode__label">Camera</span>
         <div class="mode__toggle">
-          <button class="mode__opt is-active" id="modeMap" data-mode="map">🗺️ Top-down (free)</button>
-          <button class="mode__opt" id="modeStreet" data-mode="street">📷 Street view</button>
+          <button class="mode__opt is-active" id="camThird" data-cam="third">🚗 Third-person</button>
+          <button class="mode__opt" id="camFirst" data-cam="first">👁️ First-person</button>
         </div>
-      </div>
-
-      <div id="tokenRow" class="token hidden">
-        <label for="tokenInput" class="search__label">Mapillary access token (free — needed for street view)</label>
-        <input id="tokenInput" class="search__input" type="text" placeholder="MLY|XXXX|xxxxxxxx..." autocomplete="off" />
-        <p class="token__hint">Get one free in ~60s at <b>mapillary.com</b> → log in → Developers → create an app token. No credit card. It’s saved in your browser only.</p>
       </div>
 
       <p id="startStatus" class="status" role="status"></p>
@@ -58,38 +52,24 @@
       <details class="help">
         <summary>Controls &amp; help</summary>
         <ul>
-          <li><b>W / ↑</b> — accelerate &nbsp;·&nbsp; <b>S / ↓</b> — brake / reverse</li>
-          <li><b>A / ←</b> &amp; <b>D / →</b> — steer left / right</li>
-          <li><b>Space</b> — handbrake &nbsp;·&nbsp; <b>R</b> — respawn random</li>
+          <li><b>W / ↑</b> accelerate &nbsp;·&nbsp; <b>S / ↓</b> brake / reverse</li>
+          <li><b>A / ←</b> &amp; <b>D / →</b> steer &nbsp;·&nbsp; <b>Space</b> handbrake</li>
+          <li><b>C</b> toggle camera &nbsp;·&nbsp; <b>R</b> respawn</li>
         </ul>
-        <p class="help__note">Top-down mode uses <b>OpenStreetMap</b> + <b>Nominatim</b> — totally free, no key, works instantly. Street-view mode uses <b>Mapillary</b> crowdsourced photos (free token). The original Google Street View build is still here at <a href="google.html">google.html</a>.</p>
+        <p class="help__note">Uses <b>Mapbox GL JS</b> for real 3D buildings + <b>Threebox</b> for the cars. Cities give the best buildings &amp; roads. No 3D buildings near a random spot? Try a big city. Prefer no token at all? Play the free top-down version at <a href="topdown.html">topdown.html</a>.</p>
       </details>
     </div>
   </section>
 
   <!-- ===================== GAME SCREEN ===================== -->
   <section id="game" class="screen game hidden">
-    <div id="map" class="layer"></div>
-    <div id="pano" class="layer hidden"></div>
+    <div id="map" class="map"></div>
 
-    <!-- Car sprite for top-down mode -->
-    <div id="car" class="car" aria-hidden="true">
-      <svg viewBox="0 0 40 70" width="40" height="70">
-        <rect x="6" y="4" width="28" height="62" rx="9" fill="#ff2d55" stroke="#fff" stroke-width="2"/>
-        <rect x="10" y="10" width="20" height="16" rx="4" fill="#0a1326"/>
-        <rect x="10" y="40" width="20" height="14" rx="4" fill="#0a1326"/>
-        <rect x="2" y="14" width="6" height="12" rx="3" fill="#111"/>
-        <rect x="32" y="14" width="6" height="12" rx="3" fill="#111"/>
-        <rect x="2" y="44" width="6" height="12" rx="3" fill="#111"/>
-        <rect x="32" y="44" width="6" height="12" rx="3" fill="#111"/>
-      </svg>
-    </div>
-
-    <!-- HUD -->
     <div class="hud">
       <div class="hud__top">
         <button class="hud__btn" id="backBtn" title="Back to menu">✕</button>
         <div class="hud__place" id="placeLabel">Locating…</div>
+        <button class="hud__btn" id="camBtn" title="Toggle camera (C)">🎥</button>
         <button class="hud__btn" id="respawnBtn" title="New random location (R)">🎲</button>
       </div>
 
@@ -113,8 +93,8 @@
     <div class="dash" aria-hidden="true"></div>
   </section>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/mapillary-js@4.1.2/dist/mapillary.js"></script>
-  <script src="free.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+  <script src="https://unpkg.com/threebox-plugin@2.2.7/dist/threebox.min.js"></script>
+  <script src="drive.js"></script>
 </body>
 </html>
