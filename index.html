@@ -2,559 +2,116 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BMW — Sheer Driving Pleasure</title>
-  <meta name="description" content="Discover the latest BMW lineup. Performance, luxury, and innovation engineered for the road ahead." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>StreetRacer — Open World Street View Driving</title>
+  <meta name="description" content="Drive anywhere in the world in real Google Street View. Enter a postcode/zip/pincode or jump to a random location." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="game.css" />
 </head>
 <body>
-  <!-- Custom cursor -->
-  <div class="cursor" aria-hidden="true"></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
+  <!-- ===================== START SCREEN ===================== -->
+  <section id="start" class="screen start">
+    <div class="start__bg" aria-hidden="true"></div>
+    <div class="start__panel">
+      <h1 class="title">STREET<span>RACER</span></h1>
+      <p class="tagline">Open-world driving in real Google Street View — anywhere on Earth.</p>
 
-  <!-- Progress bar -->
-  <div class="scroll-progress" aria-hidden="true"></div>
-
-  <!-- NAVIGATION -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#" class="nav__logo" aria-label="BMW">
-        <svg viewBox="0 0 100 100" class="nav__logo-svg" aria-hidden="true">
-          <circle cx="50" cy="50" r="48" fill="#000" stroke="#fff" stroke-width="2"/>
-          <circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="1"/>
-          <path d="M50 12 A38 38 0 0 1 88 50 L50 50 Z" fill="#fff"/>
-          <path d="M50 88 A38 38 0 0 1 12 50 L50 50 Z" fill="#fff"/>
-          <path d="M50 12 A38 38 0 0 0 12 50 L50 50 Z" fill="#1c69d4"/>
-          <path d="M50 88 A38 38 0 0 0 88 50 L50 50 Z" fill="#1c69d4"/>
-        </svg>
-        <span>BMW</span>
-      </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#models">Models</a>
-        <a href="#performance">Performance</a>
-        <a href="#electric">Electric</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="nav__actions">
-        <button class="btn btn--ghost" aria-label="Search">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
-        <a href="#contact" class="btn btn--primary">Book a Test Drive</a>
-        <button class="nav__burger" aria-label="Menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero__bg">
-      <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=2400&q=80" alt="" class="hero__bg-img" />
-      <div class="hero__overlay"></div>
-    </div>
-
-    <div class="hero__noise" aria-hidden="true"></div>
-
-    <div class="hero__content">
-      <p class="hero__eyebrow reveal">
-        <span class="dot"></span> The 2026 Lineup is Here
-      </p>
-      <h1 class="hero__title">
-        <span class="line"><span class="line__inner">Sheer</span></span>
-        <span class="line"><span class="line__inner">Driving</span></span>
-        <span class="line"><span class="line__inner gradient">Pleasure.</span></span>
-      </h1>
-      <p class="hero__sub reveal">
-        Engineered in Munich. Crafted for the road ahead.
-        Discover performance reimagined for a new era.
-      </p>
-      <div class="hero__cta reveal">
-        <a href="#models" class="btn btn--primary btn--lg">
-          Explore Lineup
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#electric" class="btn btn--outline btn--lg">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Watch the Film
-        </a>
-      </div>
-
-      <div class="hero__stats">
-        <div class="stat reveal" data-delay="0.1">
-          <div class="stat__num" data-count="617">0</div>
-          <div class="stat__label">Horsepower (M5)</div>
-        </div>
-        <div class="stat reveal" data-delay="0.2">
-          <div class="stat__num" data-count="2">0</div>
-          <div class="stat__label">Sec — 0 to 60 mph</div>
-          <div class="stat__suffix">.6</div>
-        </div>
-        <div class="stat reveal" data-delay="0.3">
-          <div class="stat__num" data-count="100">0</div>
-          <div class="stat__label">Years of Engineering</div>
-          <div class="stat__suffix">+</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero__scroll" aria-hidden="true">
-      <span>Scroll</span>
-      <div class="hero__scroll-line"></div>
-    </div>
-
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>M Performance</span><span>•</span>
-        <span>xDrive</span><span>•</span>
-        <span>Electric</span><span>•</span>
-        <span>iDrive 9</span><span>•</span>
-        <span>Laser Light</span><span>•</span>
-        <span>Carbon Core</span><span>•</span>
-        <span>M Performance</span><span>•</span>
-        <span>xDrive</span><span>•</span>
-        <span>Electric</span><span>•</span>
-        <span>iDrive 9</span><span>•</span>
-        <span>Laser Light</span><span>•</span>
-        <span>Carbon Core</span><span>•</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- MODELS -->
-  <section class="models" id="models">
-    <div class="container">
-      <header class="section-head reveal">
-        <p class="eyebrow">// The Range</p>
-        <h2>Engineered to Excite.</h2>
-        <p class="lede">From elegant sedans to commanding SUVs, every BMW is built to deliver an unmistakable connection between driver and road.</p>
-      </header>
-
-      <div class="models__tabs">
-        <button class="tab is-active" data-filter="all">All</button>
-        <button class="tab" data-filter="sedan">Sedans</button>
-        <button class="tab" data-filter="suv">SUVs</button>
-        <button class="tab" data-filter="ev">Electric</button>
-        <button class="tab" data-filter="m">M Series</button>
-      </div>
-
-      <div class="models__grid">
-        <article class="model-card reveal" data-cat="sedan m">
-          <div class="model-card__media">
-            <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&w=1400&q=80" alt="BMW M5" loading="lazy"/>
-          </div>
-          <div class="model-card__body">
-            <div class="model-card__top">
-              <span class="badge badge--m">M Series</span>
-              <span class="price">From $119,500</span>
-            </div>
-            <h3>The M5 Competition</h3>
-            <p>A 617-hp twin-turbo V8 hybrid sedan that redefines what a four-door sports car can be.</p>
-            <div class="model-card__specs">
-              <div><strong>617</strong><span>hp</span></div>
-              <div><strong>2.6s</strong><span>0–60</span></div>
-              <div><strong>190</strong><span>top mph</span></div>
-            </div>
-            <a href="#" class="link-arrow">Configure <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-
-        <article class="model-card reveal" data-cat="suv ev">
-          <div class="model-card__media">
-            <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1400&q=80" alt="BMW iX" loading="lazy"/>
-          </div>
-          <div class="model-card__body">
-            <div class="model-card__top">
-              <span class="badge badge--ev">Electric</span>
-              <span class="price">From $87,250</span>
-            </div>
-            <h3>The iX xDrive50</h3>
-            <p>A flagship electric SUV with 324 miles of range and breathtaking presence.</p>
-            <div class="model-card__specs">
-              <div><strong>516</strong><span>hp</span></div>
-              <div><strong>324</strong><span>mi range</span></div>
-              <div><strong>4.4s</strong><span>0–60</span></div>
-            </div>
-            <a href="#" class="link-arrow">Configure <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-
-        <article class="model-card reveal" data-cat="sedan ev">
-          <div class="model-card__media">
-            <img src="https://images.unsplash.com/photo-1617814086367-65a3a8c0fdee?auto=format&fit=crop&w=1400&q=80" alt="BMW i7" loading="lazy"/>
-          </div>
-          <div class="model-card__body">
-            <div class="model-card__top">
-              <span class="badge badge--ev">Electric</span>
-              <span class="price">From $105,700</span>
-            </div>
-            <h3>The i7 xDrive60</h3>
-            <p>The world's most luxurious electric sedan, with a 31-inch theater screen.</p>
-            <div class="model-card__specs">
-              <div><strong>536</strong><span>hp</span></div>
-              <div><strong>318</strong><span>mi range</span></div>
-              <div><strong>4.5s</strong><span>0–60</span></div>
-            </div>
-            <a href="#" class="link-arrow">Configure <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-
-        <article class="model-card reveal" data-cat="suv m">
-          <div class="model-card__media">
-            <img src="https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=1400&q=80" alt="BMW X5 M" loading="lazy"/>
-          </div>
-          <div class="model-card__body">
-            <div class="model-card__top">
-              <span class="badge badge--m">M Series</span>
-              <span class="price">From $122,000</span>
-            </div>
-            <h3>The X5 M Competition</h3>
-            <p>A high-performance SUV that combines commanding presence with track-ready agility.</p>
-            <div class="model-card__specs">
-              <div><strong>617</strong><span>hp</span></div>
-              <div><strong>3.7s</strong><span>0–60</span></div>
-              <div><strong>177</strong><span>top mph</span></div>
-            </div>
-            <a href="#" class="link-arrow">Configure <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-
-        <article class="model-card reveal" data-cat="sedan">
-          <div class="model-card__media">
-            <img src="https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1400&q=80" alt="BMW 3 Series" loading="lazy"/>
-          </div>
-          <div class="model-card__body">
-            <div class="model-card__top">
-              <span class="badge">Sport Sedan</span>
-              <span class="price">From $44,500</span>
-            </div>
-            <h3>The 3 Series</h3>
-            <p>The benchmark sport sedan, refined with the latest iDrive and curved display.</p>
-            <div class="model-card__specs">
-              <div><strong>382</strong><span>hp</span></div>
-              <div><strong>4.1s</strong><span>0–60</span></div>
-              <div><strong>32</strong><span>mpg</span></div>
-            </div>
-            <a href="#" class="link-arrow">Configure <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-
-        <article class="model-card reveal" data-cat="suv ev">
-          <div class="model-card__media">
-            <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1400&q=80" alt="BMW iX3" loading="lazy"/>
-          </div>
-          <div class="model-card__body">
-            <div class="model-card__top">
-              <span class="badge badge--ev">Electric</span>
-              <span class="price">From $66,800</span>
-            </div>
-            <h3>The iX3</h3>
-            <p>An electrified Sports Activity Vehicle with effortless range and signature BMW handling.</p>
-            <div class="model-card__specs">
-              <div><strong>402</strong><span>hp</span></div>
-              <div><strong>290</strong><span>mi range</span></div>
-              <div><strong>5.4s</strong><span>0–60</span></div>
-            </div>
-            <a href="#" class="link-arrow">Configure <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- PERFORMANCE / FEATURE BLOCK -->
-  <section class="perf" id="performance">
-    <div class="perf__bg">
-      <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=2400&q=80" alt="" />
-    </div>
-    <div class="container perf__inner">
-      <div class="perf__text reveal">
-        <p class="eyebrow eyebrow--light">// M Performance</p>
-        <h2>Born on the track.<br/><span class="gradient">Bred for the road.</span></h2>
-        <p>Every M is the result of decades of motorsport DNA — distilled into a machine that responds to your every input. Carbon-ceramic brakes, adaptive M suspension, and a chassis tuned at the Nürburgring.</p>
-        <ul class="perf__list">
-          <li><span>01</span> Adaptive M Suspension Professional</li>
-          <li><span>02</span> M Carbon Ceramic Brake System</li>
-          <li><span>03</span> Active M Differential with xDrive</li>
-          <li><span>04</span> M-tuned Twin-Turbo Engineering</li>
-        </ul>
-        <a href="#" class="btn btn--primary">Discover M <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-      </div>
-      <div class="perf__visual reveal">
-        <div class="perf__card">
-          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80" alt="BMW M Performance"/>
-          <div class="perf__card-meta">
-            <div>
-              <p class="caption">Featured</p>
-              <h4>M4 CSL</h4>
-            </div>
-            <div class="play-btn" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-        </div>
-        <div class="perf__chip chip-1">543 HP</div>
-        <div class="perf__chip chip-2">3.6s 0-60</div>
-        <div class="perf__chip chip-3">191 mph</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ELECTRIC SECTION -->
-  <section class="electric" id="electric">
-    <div class="container">
-      <header class="section-head section-head--center reveal">
-        <p class="eyebrow">// The Electric Era</p>
-        <h2>The Future is <span class="gradient">Electric.</span></h2>
-        <p class="lede">A new era of all-electric BMWs designed to deliver the dynamic performance you expect with zero local emissions.</p>
-      </header>
-
-      <div class="electric__grid">
-        <div class="ec-card ec-card--big reveal">
-          <img src="https://images.unsplash.com/photo-1617814086367-65a3a8c0fdee?auto=format&fit=crop&w=2000&q=80" alt="BMW i7"/>
-          <div class="ec-card__overlay"></div>
-          <div class="ec-card__content">
-            <span class="badge badge--ev">All Electric</span>
-            <h3>The i7</h3>
-            <p>Luxury, redefined for the electric era.</p>
-            <a href="#" class="link-arrow link-arrow--light">Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </div>
-        <div class="ec-card reveal">
-          <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1600&q=80" alt="BMW iX"/>
-          <div class="ec-card__overlay"></div>
-          <div class="ec-card__content">
-            <span class="badge badge--ev">All Electric</span>
-            <h3>The iX</h3>
-            <p>Pioneering electric SAV.</p>
-            <a href="#" class="link-arrow link-arrow--light">Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </div>
-        <div class="ec-card reveal">
-          <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=1600&q=80" alt="BMW i4"/>
-          <div class="ec-card__overlay"></div>
-          <div class="ec-card__content">
-            <span class="badge badge--ev">All Electric</span>
-            <h3>The i4</h3>
-            <p>Gran Coupe, electrified.</p>
-            <a href="#" class="link-arrow link-arrow--light">Explore <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
-          </div>
-        </div>
-      </div>
-
-      <div class="electric__features">
-        <div class="feature reveal">
-          <div class="feature__icon">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </div>
-          <h4>Up to 324 mi Range</h4>
-          <p>Drive farther on a single charge with our latest fifth-generation eDrive technology.</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature__icon">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          </div>
-          <h4>10–80% in 31 min</h4>
-          <p>DC fast charging at up to 195 kW means less waiting and more driving.</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature__icon">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 4 6v6c0 5 4 9 8 10 4-1 8-5 8-10V6l-8-4z"/></svg>
-          </div>
-          <h4>4-yr / 50k Warranty</h4>
-          <p>Comprehensive coverage including 8-year battery warranty for total peace of mind.</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature__icon">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <h4>Over-the-Air Updates</h4>
-          <p>Your BMW gets better over time with continuous software upgrades.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE / TESTIMONIAL -->
-  <section class="experience" id="experience">
-    <div class="container">
-      <header class="section-head reveal">
-        <p class="eyebrow">// Owner Stories</p>
-        <h2>Built for the<br/>passionate driver.</h2>
-      </header>
-
-      <div class="testimonials">
-        <button class="t-arrow t-arrow--prev" aria-label="Previous">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        </button>
-        <div class="t-track">
-          <article class="t-card is-active">
-            <div class="t-card__quote">"</div>
-            <p>The M5 doesn't just go fast — it transforms every commute into an event. The way it handles is otherworldly.</p>
-            <div class="t-card__author">
-              <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=200&q=80" alt=""/>
-              <div>
-                <strong>Marcus Chen</strong>
-                <span>M5 Competition Owner · 2 years</span>
-              </div>
-            </div>
-          </article>
-          <article class="t-card">
-            <div class="t-card__quote">"</div>
-            <p>Switching to the iX was a revelation. Silent, powerful, and impossibly luxurious — I'll never go back.</p>
-            <div class="t-card__author">
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt=""/>
-              <div>
-                <strong>Sofia Reyes</strong>
-                <span>iX xDrive50 Owner · 1 year</span>
-              </div>
-            </div>
-          </article>
-          <article class="t-card">
-            <div class="t-card__quote">"</div>
-            <p>Three generations of my family have driven BMW. The 3 Series remains the perfect blend of luxury and pure driving joy.</p>
-            <div class="t-card__author">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt=""/>
-              <div>
-                <strong>James Whitmore</strong>
-                <span>3 Series Owner · 5 years</span>
-              </div>
-            </div>
-          </article>
-        </div>
-        <button class="t-arrow t-arrow--next" aria-label="Next">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-
-      <div class="t-dots">
-        <button class="dot is-active" data-i="0" aria-label="Slide 1"></button>
-        <button class="dot" data-i="1" aria-label="Slide 2"></button>
-        <button class="dot" data-i="2" aria-label="Slide 3"></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA / CONTACT -->
-  <section class="cta" id="contact">
-    <div class="cta__bg">
-      <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=2400&q=80" alt=""/>
-    </div>
-    <div class="container cta__inner">
-      <div class="cta__text reveal">
-        <p class="eyebrow eyebrow--light">// Ready to Drive?</p>
-        <h2>Your BMW is<br/>waiting.</h2>
-        <p>Schedule a personalized test drive at your nearest BMW Center. No commitment — just an unforgettable experience behind the wheel.</p>
-      </div>
-
-      <form class="cta__form reveal" onsubmit="event.preventDefault(); this.classList.add('is-success');">
-        <h3>Book a Test Drive</h3>
-        <div class="field">
-          <input type="text" id="name" required />
-          <label for="name">Full Name</label>
-        </div>
-        <div class="field">
-          <input type="email" id="email" required />
-          <label for="email">Email Address</label>
-        </div>
-        <div class="field">
-          <select id="model" required>
-            <option value="">Choose a Model</option>
-            <option>3 Series</option>
-            <option>5 Series</option>
-            <option>M5 Competition</option>
-            <option>X5</option>
-            <option>iX</option>
-            <option>i4</option>
-            <option>i7</option>
-          </select>
-          <label for="model" class="select-label">Preferred Model</label>
-        </div>
-        <div class="field">
-          <input type="date" id="date" required />
-          <label for="date" class="select-label">Preferred Date</label>
-        </div>
-        <button type="submit" class="btn btn--primary btn--lg btn--block">
-          Reserve My Drive
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </button>
-        <div class="form-success">
-          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
-          <p>Thank you. We'll be in touch shortly.</p>
+      <form id="searchForm" class="search">
+        <label for="placeInput" class="search__label">Enter a postcode / zip / pincode or a place</label>
+        <div class="search__row">
+          <input id="placeInput" class="search__input" type="text"
+                 placeholder="e.g. SW1A 1AA, 10001, 560001, Tokyo..." autocomplete="off" />
+          <button type="submit" class="btn btn--primary" id="driveBtn">Drive here</button>
         </div>
       </form>
+
+      <div class="start__or"><span>or</span></div>
+
+      <div class="start__random">
+        <button class="btn btn--ghost" id="randomBtn">🎲 Random location</button>
+        <button class="btn btn--ghost" id="famousBtn">🌆 Random famous city</button>
+      </div>
+
+      <p id="startStatus" class="status" role="status"></p>
+
+      <details class="help">
+        <summary>Controls &amp; help</summary>
+        <ul>
+          <li><b>W / ↑</b> — accelerate forward (move to next Street View point)</li>
+          <li><b>S / ↓</b> — reverse</li>
+          <li><b>A / ←</b> &amp; <b>D / →</b> — steer (turn the view)</li>
+          <li><b>Mouse drag</b> — look around</li>
+          <li><b>R</b> — respawn at a new random location</li>
+        </ul>
+        <p class="help__note">Not loading? Make sure your Google Cloud project has <b>billing enabled</b> and these APIs turned on: <b>Maps JavaScript API</b>, <b>Street View</b>, and <b>Geocoding API</b>.</p>
+      </details>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a href="#" class="nav__logo">
-            <svg viewBox="0 0 100 100" class="nav__logo-svg" aria-hidden="true">
-              <circle cx="50" cy="50" r="48" fill="#000" stroke="#fff" stroke-width="2"/>
-              <circle cx="50" cy="50" r="38" fill="none" stroke="#fff" stroke-width="1"/>
-              <path d="M50 12 A38 38 0 0 1 88 50 L50 50 Z" fill="#fff"/>
-              <path d="M50 88 A38 38 0 0 1 12 50 L50 50 Z" fill="#fff"/>
-              <path d="M50 12 A38 38 0 0 0 12 50 L50 50 Z" fill="#1c69d4"/>
-              <path d="M50 88 A38 38 0 0 0 88 50 L50 50 Z" fill="#1c69d4"/>
-            </svg>
-            <span>BMW</span>
-          </a>
-          <p>Sheer Driving Pleasure since 1916. Built in Munich, loved worldwide.</p>
-          <div class="socials">
-            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg></a>
-            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><path d="m9.75 15.02 5.75-3.27-5.75-3.27v6.54z" fill="currentColor"/></svg></a>
-            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.53 3H20.7l-6.93 7.93L22 21h-6.4l-5.01-6.55L4.86 21H1.7l7.42-8.49L1.5 3h6.55l4.53 5.99L17.53 3zm-1.11 16.13h1.76L7.66 4.78H5.78l10.64 14.35z"/></svg></a>
-          </div>
-        </div>
-        <div class="footer__cols">
-          <div>
-            <h5>Vehicles</h5>
-            <a href="#">Sedans</a>
-            <a href="#">SUVs</a>
-            <a href="#">Coupes</a>
-            <a href="#">Electric</a>
-            <a href="#">M Series</a>
-          </div>
-          <div>
-            <h5>Owners</h5>
-            <a href="#">My BMW</a>
-            <a href="#">Service</a>
-            <a href="#">Warranty</a>
-            <a href="#">Parts</a>
-          </div>
-          <div>
-            <h5>Company</h5>
-            <a href="#">About</a>
-            <a href="#">Careers</a>
-            <a href="#">Press</a>
-            <a href="#">Sustainability</a>
-          </div>
-          <div>
-            <h5>Contact</h5>
-            <a href="#">Find a Dealer</a>
-            <a href="#">Customer Care</a>
-            <a href="tel:+18008312383">1-800-831-2383</a>
-          </div>
-        </div>
+  <!-- ===================== GAME SCREEN ===================== -->
+  <section id="game" class="screen game hidden">
+    <div id="pano" class="pano"></div>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud__top">
+        <button class="hud__btn" id="backBtn" title="Back to menu">✕</button>
+        <div class="hud__place" id="placeLabel">Locating…</div>
+        <button class="hud__btn" id="respawnBtn" title="New random location (R)">🎲</button>
       </div>
-      <div class="footer__bottom">
-        <p>© 2026 BMW of North America, LLC. All rights reserved.</p>
-        <div>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Cookies</a>
+
+      <div id="minimap" class="minimap"></div>
+
+      <div class="speedo">
+        <div class="speedo__dial">
+          <div class="speedo__value" id="speedValue">0</div>
+          <div class="speedo__unit">km/h</div>
         </div>
+        <div class="speedo__gear" id="gearLabel">N</div>
+      </div>
+
+      <div class="touch" aria-hidden="true">
+        <button class="touch__btn" data-key="left">◀</button>
+        <div class="touch__col">
+          <button class="touch__btn" data-key="up">▲</button>
+          <button class="touch__btn" data-key="down">▼</button>
+        </div>
+        <button class="touch__btn" data-key="right">▶</button>
       </div>
     </div>
-  </footer>
 
-  <script src="script.js"></script>
+    <!-- Dashboard overlay for immersion -->
+    <div class="dash" aria-hidden="true"></div>
+  </section>
+
+  <!-- Fatal error overlay -->
+  <div id="fatal" class="fatal hidden">
+    <div class="fatal__box">
+      <h2>⚠️ Map failed to load</h2>
+      <p id="fatalMsg"></p>
+    </div>
+  </div>
+
+  <script>
+    // Expose the API key so game.js can use it.
+    window.GMAPS_API_KEY = "AIzaSyDoRJ4jRIKqWzyQu5E8210a_hnuwoNwqp0";
+
+    // Google calls this if the API key / billing / referrer is invalid.
+    window.gm_authFailure = function () {
+      var f = document.getElementById('fatal');
+      var m = document.getElementById('fatalMsg');
+      m.innerHTML = "Google rejected the API key. Check that:<br>" +
+        "&bull; <b>Billing is enabled</b> on your Google Cloud project<br>" +
+        "&bull; <b>Maps JavaScript API</b> &amp; <b>Geocoding API</b> are enabled<br>" +
+        "&bull; The key's <b>website restrictions</b> allow this domain";
+      f.classList.remove('hidden');
+    };
+  </script>
+  <script src="game.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoRJ4jRIKqWzyQu5E8210a_hnuwoNwqp0&callback=initGame&loading=async">
+  </script>
 </body>
 </html>
