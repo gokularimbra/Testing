@@ -95,9 +95,6 @@
   </div>
 
   <script>
-    // Expose the API key so game.js can use it.
-    window.GMAPS_API_KEY = "AIzaSyDoRJ4jRIKqWzyQu5E8210a_hnuwoNwqp0";
-
     // Google calls this if the API key / billing / referrer is invalid.
     window.gm_authFailure = function () {
       var f = document.getElementById('fatal');
@@ -105,13 +102,33 @@
       m.innerHTML = "Google rejected the API key. Check that:<br>" +
         "&bull; <b>Billing is enabled</b> on your Google Cloud project<br>" +
         "&bull; <b>Maps JavaScript API</b> &amp; <b>Geocoding API</b> are enabled<br>" +
-        "&bull; The key's <b>website restrictions</b> allow this domain";
+        "&bull; The key's <b>website restrictions</b> allow this domain<br><br>" +
+        "<a href='index.html'>&larr; Or play the free no-key version</a>";
       f.classList.remove('hidden');
     };
+
+    // The key is NOT hardcoded (so it isn't exposed when this page is hosted
+    // publicly). It's read from ?key=... in the URL, or from a saved value,
+    // or the player is prompted once. It stays in their browser only.
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var key = params.get('key') || localStorage.getItem('gmaps_key');
+      if (!key) {
+        key = window.prompt(
+          'Enter your Google Maps API key to play the Street View edition.\n' +
+          '(Tip: the free version at index.html needs no key.)'
+        );
+        if (!key) { location.href = 'index.html'; return; }
+      }
+      localStorage.setItem('gmaps_key', key);
+      window.GMAPS_API_KEY = key;
+      var s = document.createElement('script');
+      s.async = true; s.defer = true;
+      s.src = 'https://maps.googleapis.com/maps/api/js?key=' +
+              encodeURIComponent(key) + '&callback=initGame&loading=async';
+      document.body.appendChild(s);
+    })();
   </script>
   <script src="game.js"></script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoRJ4jRIKqWzyQu5E8210a_hnuwoNwqp0&callback=initGame&loading=async">
-  </script>
 </body>
 </html>
