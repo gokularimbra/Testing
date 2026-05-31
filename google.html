@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>StreetRacer (Google) — Open World Street View Driving</title>
+  <meta name="description" content="Drive anywhere in the world in real Google Street View. Enter a postcode/zip/pincode or jump to a random location." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="game.css" />
+</head>
+<body>
+  <!-- ===================== START SCREEN ===================== -->
+  <section id="start" class="screen start">
+    <div class="start__bg" aria-hidden="true"></div>
+    <div class="start__panel">
+      <h1 class="title">STREET<span>RACER</span></h1>
+      <p class="tagline">Open-world driving in real Google Street View — anywhere on Earth.</p>
+
+      <form id="searchForm" class="search">
+        <label for="placeInput" class="search__label">Enter a postcode / zip / pincode or a place</label>
+        <div class="search__row">
+          <input id="placeInput" class="search__input" type="text"
+                 placeholder="e.g. SW1A 1AA, 10001, 560001, Tokyo..." autocomplete="off" />
+          <button type="submit" class="btn btn--primary" id="driveBtn">Drive here</button>
+        </div>
+      </form>
+
+      <div class="start__or"><span>or</span></div>
+
+      <div class="start__random">
+        <button class="btn btn--ghost" id="randomBtn">🎲 Random location</button>
+        <button class="btn btn--ghost" id="famousBtn">🌆 Random famous city</button>
+      </div>
+
+      <p id="startStatus" class="status" role="status"></p>
+
+      <details class="help">
+        <summary>Controls &amp; help</summary>
+        <ul>
+          <li><b>W / ↑</b> — accelerate forward (move to next Street View point)</li>
+          <li><b>S / ↓</b> — reverse</li>
+          <li><b>A / ←</b> &amp; <b>D / →</b> — steer (turn the view)</li>
+          <li><b>Mouse drag</b> — look around</li>
+          <li><b>R</b> — respawn at a new random location</li>
+        </ul>
+        <p class="help__note">Not loading? Make sure your Google Cloud project has <b>billing enabled</b> and these APIs turned on: <b>Maps JavaScript API</b>, <b>Street View</b>, and <b>Geocoding API</b>.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===================== GAME SCREEN ===================== -->
+  <section id="game" class="screen game hidden">
+    <div id="pano" class="pano"></div>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud__top">
+        <button class="hud__btn" id="backBtn" title="Back to menu">✕</button>
+        <div class="hud__place" id="placeLabel">Locating…</div>
+        <button class="hud__btn" id="respawnBtn" title="New random location (R)">🎲</button>
+      </div>
+
+      <div id="minimap" class="minimap"></div>
+
+      <div class="speedo">
+        <div class="speedo__dial">
+          <div class="speedo__value" id="speedValue">0</div>
+          <div class="speedo__unit">km/h</div>
+        </div>
+        <div class="speedo__gear" id="gearLabel">N</div>
+      </div>
+
+      <div class="touch" aria-hidden="true">
+        <button class="touch__btn" data-key="left">◀</button>
+        <div class="touch__col">
+          <button class="touch__btn" data-key="up">▲</button>
+          <button class="touch__btn" data-key="down">▼</button>
+        </div>
+        <button class="touch__btn" data-key="right">▶</button>
+      </div>
+    </div>
+
+    <!-- Dashboard overlay for immersion -->
+    <div class="dash" aria-hidden="true"></div>
+  </section>
+
+  <!-- Fatal error overlay -->
+  <div id="fatal" class="fatal hidden">
+    <div class="fatal__box">
+      <h2>⚠️ Map failed to load</h2>
+      <p id="fatalMsg"></p>
+    </div>
+  </div>
+
+  <script>
+    // Expose the API key so game.js can use it.
+    window.GMAPS_API_KEY = "AIzaSyDoRJ4jRIKqWzyQu5E8210a_hnuwoNwqp0";
+
+    // Google calls this if the API key / billing / referrer is invalid.
+    window.gm_authFailure = function () {
+      var f = document.getElementById('fatal');
+      var m = document.getElementById('fatalMsg');
+      m.innerHTML = "Google rejected the API key. Check that:<br>" +
+        "&bull; <b>Billing is enabled</b> on your Google Cloud project<br>" +
+        "&bull; <b>Maps JavaScript API</b> &amp; <b>Geocoding API</b> are enabled<br>" +
+        "&bull; The key's <b>website restrictions</b> allow this domain";
+      f.classList.remove('hidden');
+    };
+  </script>
+  <script src="game.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoRJ4jRIKqWzyQu5E8210a_hnuwoNwqp0&callback=initGame&loading=async">
+  </script>
+</body>
+</html>
